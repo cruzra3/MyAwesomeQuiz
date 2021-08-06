@@ -34,6 +34,19 @@
         android:text="00:30"
         android:layout_alignParentEnd="true"
         />
+
+    <TextView
+        android:id="@+id/text_view_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Here will be the question text\nHere will be the question text\nHere will be the question text\n"
+        android:textSize="20sp"
+        android:layout_above="@id/radio_group"
+        android:layout_marginBottom="16dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        />
+
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_centerVertical="true"
