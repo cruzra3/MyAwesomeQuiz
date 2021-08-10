@@ -1,9 +1,9 @@
 package com.codinginflow.myawesomequiz;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
+    public static final String EXTRA_SCORE = "extraScore";
+
     private TextView textViewQuestion;
     private TextView textViewScore;
     private TextView textViewQuestionCount;
@@ -33,6 +35,8 @@ public class QuizActivity extends AppCompatActivity {
     private Question currentQuestion;
     private int score;
     private boolean answered;
+    private long backPressedTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showNextQuestion() {
         rb1.setTextColor(textColorDefaultRb);
         rb2.setTextColor(textColorDefaultRb);
@@ -86,6 +91,7 @@ public class QuizActivity extends AppCompatActivity {
             finishQuiz();
         }
     }
+
     private void checkAnswer() {
         answered = true;
         RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
@@ -97,6 +103,7 @@ public class QuizActivity extends AppCompatActivity {
         }
         showSolution();
     }
+
     private void showSolution() {
         rb1.setTextColor(Color.RED);
         rb2.setTextColor(Color.RED);
@@ -121,7 +128,22 @@ public class QuizActivity extends AppCompatActivity {
             buttonConfirmNext.setText("Finish");
         }
     }
+
     private void finishQuiz() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(EXTRA_SCORE, score);
+        setResult(RESULT_OK, resultIntent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backPressedTime + 2000 > System.currentTimeMillis()){
+            finishQuiz();
+        } else {
+            Toast.makeText(this, "Press back again to finish", Toast.LENGTH_SHORT).show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
     }
 }
