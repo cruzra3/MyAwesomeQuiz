@@ -201,6 +201,7 @@ public class QuizActivity extends AppCompatActivity {
             countDownTimer.cancel();
         }
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

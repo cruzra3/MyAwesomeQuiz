@@ -28,7 +28,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 QuestionsTable.COLUMN_OPTION2 + " TEXT, " +
                 QuestionsTable.COLUMN_OPTION3 + " TEXT, " +
                 QuestionsTable.COLUMN_ANSWER_NR + " INTEGER, " +
-                QuestionsTable.COLUMN_DIFFICULTY + " TEXT " +
+                QuestionsTable.COLUMN_DIFFICULTY + " TEXT" +
                 ")";
         db.execSQL(SQL_CREATE_QUESTIONS_TABLE);
         fillQuestionsTable();
@@ -80,20 +80,19 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 question.setOption2(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION2)));
                 question.setOption3(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION3)));
                 question.setAnswerNr(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_ANSWER_NR)));
+                question.setDifficulty(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_DIFFICULTY)));
                 questionList.add(question);
             } while (c.moveToNext());
         }
         c.close();
         return questionList;
     }
-
     public ArrayList<Question> getQuestions(String difficulty) {
         ArrayList<Question> questionList = new ArrayList<>();
         db = getReadableDatabase();
-
-        String[] selectionArgs = new String[] {difficulty};
+        String[] selectionArgs = new String[]{difficulty};
         Cursor c = db.rawQuery("SELECT * FROM " + QuestionsTable.TABLE_NAME +
-                "WHERE " + QuestionsTable.COLUMN_DIFFICULTY + " = ?", selectionArgs );
+                " WHERE " + QuestionsTable.COLUMN_DIFFICULTY + " = ?", selectionArgs);
         if (c.moveToFirst()) {
             do {
                 Question question = new Question();

@@ -7,7 +7,6 @@ public class Question implements Parcelable {
     public static final String DIFFICULTY_EASY = "Easy";
     public static final String DIFFICULTY_MEDIUM = "Medium";
     public static final String DIFFICULTY_HARD = "Hard";
-
     private String question;
     private String option1;
     private String option2;
@@ -86,15 +85,12 @@ public class Question implements Parcelable {
     public void setAnswerNr(int answerNr) {
         this.answerNr = answerNr;
     }
-
     public String getDifficulty() {
         return difficulty;
     }
-
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
-
     public static String[] getAllDifficultyLevels() {
         return new String[]{
                 DIFFICULTY_EASY,
